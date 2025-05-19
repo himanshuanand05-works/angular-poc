@@ -1,9 +1,29 @@
-<div>
-  This is from div element
-</div>
-<ng-container>
+<!-- This is also an example of how new control flow statement makes the use of ng-container obsolete. -->
+@if(true){
+  This is from if block without any element. Does this makes the use of ng-container obselete?
+}
+
+<!-- This will render if no structural directive is used -->
+<ng-container *ngIf="false">
   This is from ng-container element
 </ng-container>
-<ng-template>
-  This is from ng-template element
+
+<ng-template #tpl let-message="message">
+  <p>{{ message }}</p>
 </ng-template>
+<!-- This makes ng-container obselete? -->
+@if (true) {
+  <ng-template [ngTemplateOutlet]="tpl" [ngTemplateOutletContext]="{ message: 'Hello again!' }"></ng-template>
+}
+<!-- The same is achieved using ng-container -->
+@if (true) {
+  <ng-container [ngTemplateOutlet]="tpl" [ngTemplateOutletContext]="{ message: 'Hello again!' }"></ng-container>
+}
+<hr>
+<!-- Placeholder for dynamic content -->
+<div #dynamicContent></div>
+<button (click)="renderPlaceholderTemplate()">Render Placeholder Template</button>
+<button (click)="clearPlaceholderTemplate()">Clear Placeholder Template</button>
+<hr>
+<button (click)="renderTemplate()">Render Template</button>
+<button (click)="clearTemplate()">Clear Template</button>
