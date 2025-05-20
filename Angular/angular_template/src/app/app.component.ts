@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, EmbeddedViewRef, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -10,6 +10,7 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.sass'
 })
 export class AppComponent {
+  dynamicRenderSequenceNumber = 0
   title = 'angular_template';
 
   /** we used static: true option to tell angular compiler that this element reference will be available
@@ -37,21 +38,35 @@ export class AppComponent {
     });
   }
 
+  /**
+   * This won't clear any template created in HTML using structural directives like *ngIf or @if
+   * because the viewRef Doesn't contain the ref to those renderings as they are owned and managed 
+   * by angular internally.
+   */
   clearTemplate() {
     // Clear all dynamically rendered views
     this.viewContainerRef.clear();
   }
 
   renderPlaceholderTemplate() {
+    const templateContext:{ message: string, viewRef: EmbeddedViewRef<any> | null, dynamicRenderSequenceNumber: number | null } = {
+      message: 'This is rendered dynamically in the layout!',
+      viewRef: null,
+      dynamicRenderSequenceNumber: null
+    }
+    templateContext.dynamicRenderSequenceNumber = this.dynamicRenderSequenceNumber++
     // Render the template dynamically in the placeholder
-    this.dynamicContent.createEmbeddedView(this.template, {
-      message: 'This is rendered dynamically in the layout!'
-    });
+    templateContext.viewRef = this.dynamicContent.createEmbeddedView(this.template, templateContext);
   }
 
   clearPlaceholderTemplate() {
     // Clear all dynamically rendered views in the placeholder
     this.dynamicContent.clear();
+  }
+
+  // Remove only a specific render instead of last render
+  clearSpecificRender(viewRef: EmbeddedViewRef<any>) {
+    this.dynamicContent.remove(this.dynamicContent.indexOf(viewRef))
   }
   
 }

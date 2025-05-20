@@ -8,8 +8,11 @@
   This is from ng-container element
 </ng-container>
 
-<ng-template #tpl let-message="message">
-  <p>{{ message }}</p>
+<ng-template #tpl let-message="message" let-viewRef="viewRef" let-index="dynamicRenderSequenceNumber">
+  <p>{{ message + " " }} {{index !== undefined ? index: ""}}</p>
+  @if(viewRef){
+    <button (click)="clearSpecificRender(viewRef)">Remove</button>
+  }
 </ng-template>
 <!-- This makes ng-container obselete? -->
 @if (true) {
