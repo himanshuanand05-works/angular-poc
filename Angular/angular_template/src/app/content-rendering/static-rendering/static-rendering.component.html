@@ -1,0 +1,31 @@
+<p>content-rendering works!</p>
+<hr>
+<!-- This is also an example of how new control flow statement makes the use of ng-container obsolete. -->
+@if(true) {
+    This is rendered without any encapsulating element
+    This is from if block without any element. Does this makes the use of ng-container obselete?
+}
+<hr>
+<!-- This will render if no structural directive is used -->
+<ng-container *ngIf="true">
+    This is rendered from ng-container element without any reference to template element
+</ng-container>
+<ng-template #tpl let-message="message">
+    <p>{{ message }} </p>
+</ng-template>
+<hr>
+<!-- This makes ng-container obselete? -->
+@if (true) {
+<ng-template [ngTemplateOutlet]="tpl" 
+    [ngTemplateOutletContext]="{ message: 'This is rendered from ng-template using template reference!' }">
+</ng-template>
+}
+<hr>
+<!-- The same is achieved using ng-container -->
+@if (true) {
+<ng-container [ngTemplateOutlet]="tpl" 
+    [ngTemplateOutletContext]="{ message: 'This is rendered from ng-container using template reference!' }">
+</ng-container>
+}
+<hr>
+  

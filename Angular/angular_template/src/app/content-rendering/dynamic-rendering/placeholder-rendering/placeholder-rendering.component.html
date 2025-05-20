@@ -1,0 +1,15 @@
+<div #dynamicContent></div>
+<p>placeholder-rendering works!</p>
+<p>The dynamic content will not be appended at the last</p>
+<!-- Placeholder for dynamic content -->
+<div>
+    <button (click)="renderPlaceholderTemplate()">Render Placeholder Template</button>
+    <button (click)="clearPlaceholderTemplate()">Clear Placeholder Template</button>    
+</div>
+
+<ng-template #tpl let-message="message" let-viewRef="viewRef" let-index="dynamicRenderSequenceNumber">
+    <p>{{ message + " " }} {{index !== undefined ? index: ""}}</p>
+    @if(viewRef){
+    <button (click)="clearSpecificRender(viewRef)">Remove</button>
+    }
+</ng-template>

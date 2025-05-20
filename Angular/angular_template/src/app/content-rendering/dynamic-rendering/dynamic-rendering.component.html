@@ -1,0 +1,10 @@
+<p>dynamic-rendering works!</p>
+<p>The dynamic content will be appended at the last.</p>
+<div>
+    <button (click)="renderTemplate()">Render Placeholder Template</button>
+    <button (click)="clearTemplate()">Clear Placeholder Template</button>    
+</div>
+
+<ng-template #tpl let-message="message">
+    <p>{{ message }}</p>
+</ng-template>
