@@ -1,32 +1,7 @@
-<!-- This is also an example of how new control flow statement makes the use of ng-container obsolete. -->
-@if(true){
-  This is from if block without any element. Does this makes the use of ng-container obselete?
-}
-
-<!-- This will render if no structural directive is used -->
-<ng-container *ngIf="false">
-  This is from ng-container element
-</ng-container>
-
-<ng-template #tpl let-message="message" let-viewRef="viewRef" let-index="dynamicRenderSequenceNumber">
-  <p>{{ message + " " }} {{index !== undefined ? index: ""}}</p>
-  @if(viewRef){
-    <button (click)="clearSpecificRender(viewRef)">Remove</button>
-  }
-</ng-template>
-<!-- This makes ng-container obselete? -->
-@if (true) {
-  <ng-template [ngTemplateOutlet]="tpl" [ngTemplateOutletContext]="{ message: 'Hello again!' }"></ng-template>
-}
-<!-- The same is achieved using ng-container -->
-@if (true) {
-  <ng-container [ngTemplateOutlet]="tpl" [ngTemplateOutletContext]="{ message: 'Hello again!' }"></ng-container>
-}
-<hr>
-<!-- Placeholder for dynamic content -->
-<div #dynamicContent></div>
-<button (click)="renderPlaceholderTemplate()">Render Placeholder Template</button>
-<button (click)="clearPlaceholderTemplate()">Clear Placeholder Template</button>
-<hr>
-<button (click)="renderTemplate()">Render Template</button>
-<button (click)="clearTemplate()">Clear Template</button>
+<nav>
+  <!-- Used the routerLinkActiveOptions here because '/' will match all routes and thus will keep this anchor tag always active -->
+  <a [routerLink]="['/']" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active">Home</a> | 
+  <a [routerLink]="['/content-rendering']" routerLinkActive="active">Content Rendering</a> | 
+  <a [routerLink]="['/content-projection']" routerLinkActive="active">Content Projection</a> 
+</nav>
+<router-outlet></router-outlet>
