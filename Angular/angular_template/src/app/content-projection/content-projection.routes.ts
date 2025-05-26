@@ -1,8 +1,16 @@
 import { Routes } from '@angular/router';
-import { ParentComponent } from './parent/parent.component';
-import { ChildComponent } from './child/child.component';
+import { ContentProjectionComponent } from './content-projection.component';
+import { SingleSlotComponent } from './single-slot/single-slot.component';
+import { MultiSlotComponent } from './multi-slot/multi-slot.component';
 
-export const routes: Routes = [
-    { path: "parent-component", component: ParentComponent },
-    { path: "child-component", component: ChildComponent }
+export const contentProjectionRoutes: Routes = [
+    { 
+        path:"",
+        component: ContentProjectionComponent,
+        children: [
+            { path:"", component: SingleSlotComponent},
+            { path: "multi-slot", component: MultiSlotComponent },
+            // { path: "conditional", component: ChildComponent }        
+        ]
+    }
 ];

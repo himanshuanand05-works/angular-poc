@@ -1,1 +1,9 @@
-<p>content-projection works!</p>
+<div style="display: flex; flex-direction: row; padding: 3px;">
+    <div style="display: flex; flex-direction: column; background-color: bisque; border-right: 3px solid #111;">
+        <a [routerLink]="['./']" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active">Single Slot</a> 
+        <a [routerLink]="['./multi-slot']" routerLinkActive="active">Multi Slot</a>
+    </div>
+    <div style="display: flex; flex-direction: column;  margin-left: 10px;">
+        <router-outlet></router-outlet>
+    </div>
+</div>
