@@ -1,1 +1,0 @@
-# sapher-stratus
